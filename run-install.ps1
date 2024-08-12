@@ -20,10 +20,14 @@ $windowsUserHome = Resolve-Path ~
 
 # By default, all scripts will work with the .dev-setup subdirectory in the $windowsUserHome directory.
 $setupPath = "$windowsUserHome\.dev-setup"
+# Additional directories we use for configuration purposes in the users home directory on windows.
+$dotDockerPath = "$windowsUserHome\.docker"
 
 if ($DeleteBeforeInstall)
 {
     Remove-Item -Recurse -Force $setupPath
+    Remove-Item -Recurse -Force $dotDockerPath
+    Remove-Item -Recurse -Force "$windowsUserHome\.testcontainers.properties"
     wsl --unregister Ubuntu-24.04
 }
 
@@ -42,6 +46,16 @@ Write-Host "Creating $setupPath directory."
 # copy configuration script and files for docker daemon
 [Void](New-Item -Path "$setupPath\docker" -ItemType Directory)
 Copy-Item -Path "$PSScriptRoot\docker\*" -Destination "$setupPath\docker\" -Recurse
+
+# copy the testcontainers configuration files
+Copy-Item -Path "$PSScriptRoot\docker\config\.testcontainers.properties" -Destination "$windowsUserHome\.testcontainers.properties"
+
+# copy the ssl files for docker client and rename them such that it works with testcontainers
+[Void](New-Item -Path "$windowsUserHome\.docker" -ItemType Directory)
+[Void](New-Item -Path "$windowsUserHome\.docker\testcontainers" -ItemType Directory)
+Copy-Item -Path "$setupPath\docker-ssl\ca.pem" -Destination "$dotDockerPath\testcontainers\ca.pem"
+Copy-Item -Path "$setupPath\docker-ssl\client-key.pem" -Destination "$dotDockerPath\testcontainers\key.pem"
+Copy-Item -Path "$setupPath\docker-ssl\client-cert.pem" -Destination "$dotDockerPath\testcontainers\cert.pem"
 
 # initialzie the wsl with ubuntu and cloud init configuration.
 & $PSScriptRoot\wsl-cloud-init/setup-wsl-cloud-init-config.ps1
