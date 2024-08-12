@@ -39,3 +39,10 @@ packages:
   - "containerd.io"
   # packages for utility
   - "wslu"
+
+runcmd:
+  - |
+    windowsUserHome="$(wslpath "$(wslvar USERPROFILE)")"
+    setupPath="$windowsUserHome/.dev-setup"
+    
+    sudo "$setupPath/docker/configure-inside-wsl.sh"

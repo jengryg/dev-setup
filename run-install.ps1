@@ -35,5 +35,13 @@ if (Test-Path $setupPath)
 Write-Host "Creating $setupPath directory."
 [Void](New-Item -Path $setupPath -ItemType Directory)
 
+# create the self signed certificates for the docker daemon https connections
+[Void](New-Item -Path "$setupPath\docker-ssl" -ItemType Directory)
+& $PSScriptRoot\ssl\localhost\generate-ssl-localhost.ps1 -out "$setupPath\docker-ssl"
+
+# copy configuration script and files for docker daemon
+[Void](New-Item -Path "$setupPath\docker" -ItemType Directory)
+Copy-Item -Path "$PSScriptRoot\docker\*" -Destination "$setupPath\docker\" -Recurse
+
 # initialzie the wsl with ubuntu and cloud init configuration.
 & $PSScriptRoot\wsl-cloud-init/setup-wsl-cloud-init-config.ps1
