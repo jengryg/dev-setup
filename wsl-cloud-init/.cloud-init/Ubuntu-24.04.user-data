@@ -39,11 +39,16 @@ packages:
   - "containerd.io"
   # packages for utility
   - "wslu"
+  - "dos2unix"
 
 runcmd:
   - |
     windowsUserHome="$(wslpath "$(wslvar USERPROFILE)")"
     setupPath="$windowsUserHome/.dev-setup"
     
-    sudo "$setupPath/docker/configure-inside-wsl.sh"
-    sudo "$setupPath/docker/run-portainer-in-docker.sh"
+    for bashScript in "$setupPath/docker/configure-inside-wsl.sh" \
+                      "$setupPath/docker/run-portainer-in-docker.sh"
+    do
+      sudo dos2unix $bashScript
+      sudo $bashScript
+    done
