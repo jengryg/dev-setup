@@ -28,5 +28,8 @@ ubuntu2404.exe run cloud-init status --wait --long
 Write-Host "Installation complete. Shutting down Ubuntu."
 wsl -t Ubuntu-24.04
 
+# make the installed distribution the default one
+wsl --setdefault Ubuntu-24.04
+
 # restart the instance
-ubuntu2404.exe
+wsl

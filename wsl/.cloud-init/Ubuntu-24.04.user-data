@@ -1,0 +1,40 @@
+#cloud-config
+groups:
+  - "docker"
+
+users:
+  - name: "user"
+    groups:
+      - "sudo"
+      - "docker"
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    shell: "/bin/bash"
+disable_root: true
+
+write_files:
+  - path: /etc/wsl.conf
+    append: true
+    content: |
+      [user]
+      default=user
+
+# update apt database
+package_update: true
+# upgrade the system
+package_upgrade: true
+# reboot after package install if necessary
+package_reboot_if_required: true
+
+packages:
+  # packages for docker install
+  - "apt-transport-https"
+  - "ca-certificates"
+  - "curl"
+  - "gnupg2"
+  - "wslu"
+  - "dos2unix"
+
+# explicitly set locale instead of relying on default
+locale: en_US.UTF-8
+# create default locale configfile
+locale_configfile: /etc/default/locale

@@ -20,6 +20,7 @@ $windowsUserHome = Resolve-Path ~
 
 # By default, all scripts will work with the .dev-setup subdirectory in the $windowsUserHome directory.
 $setupPath = "$windowsUserHome\.dev-setup"
+
 # Additional directories we use for configuration purposes in the users home directory on windows.
 $dotDockerPath = "$windowsUserHome\.docker"
 
@@ -39,6 +40,10 @@ if (Test-Path $setupPath)
 Write-Host "Creating $setupPath directory."
 [Void](New-Item -Path $setupPath -ItemType Directory)
 
+# copy the script for the environment setup in wsl
+[Void](New-Item -Path "$setupPath\wsl" -ItemType Directory)
+Copy-Item -Path "$PSScriptRoot\wsl\*" -Destination "$setupPath\wsl\" -Recurse
+
 # create the self signed certificates for the docker daemon https connections
 [Void](New-Item -Path "$setupPath\docker-ssl" -ItemType Directory)
 & $PSScriptRoot\ssl\localhost\generate-ssl-localhost.ps1 -out "$setupPath\docker-ssl"
@@ -57,5 +62,9 @@ Copy-Item -Path "$setupPath\docker-ssl\ca.pem" -Destination "$dotDockerPath\test
 Copy-Item -Path "$setupPath\docker-ssl\client-key.pem" -Destination "$dotDockerPath\testcontainers\key.pem"
 Copy-Item -Path "$setupPath\docker-ssl\client-cert.pem" -Destination "$dotDockerPath\testcontainers\cert.pem"
 
+# copy the configuration script and files for k8s kind cluster
+[Void](New-Item -Path "$setupPath\k8s-kind" -ItemType Directory)
+Copy-Item -Path "$PSScriptRoot\k8s-kind\*" -Destination "$setupPath\k8s-kind\" -Recurse
+
 # initialzie the wsl with ubuntu and cloud init configuration.
-& $PSScriptRoot\wsl-cloud-init/setup-wsl-cloud-init-config.ps1
+& $PSScriptRoot\wsl\setup-wsl-cloud-init-config.ps1

@@ -12,7 +12,7 @@
               <option name="patterns">
                 <list>
                   <Item>
-                    <option name="path" value="wsl-cloud-init/.cloud-init/Ubuntu-24.04.user-data" />
+                    <option name="path" value="wsl/.cloud-init/Ubuntu-24.04.user-data" />
                   </Item>
                 </list>
               </option>
