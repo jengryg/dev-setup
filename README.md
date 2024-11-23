@@ -12,3 +12,32 @@ run-install.ps1
 cd "$( wslpath "$( wslvar USERPROFILE )" )/.dev-setup"
 ./wsl/setup-environment-in-wsl.sh
 ````
+
+### Configure Portainer
+
+Use https://localhost:9443 to go to the portainer instance in your browser on Windows to check if it works.
+Follow the setup of portainer to complete it. If not completed shortly after setup, a security mechanism will trigger,
+and you have to restart portainer in docker to be able to set it up.
+
+### Configure Docker in IntelliJ
+
+Use IntelliJ docker configuration and point the docker integration to the wsl installation using TCP socket with https.
+See https://www.jetbrains.com/help/idea/docker.html#connect_to_docker for more information.
+
+* Connection Type: `TCP SOCKET`
+* Host: `https://localhost:2376`
+* Certificates: `<WINDOWS USER HOME>\.docker\testcontainers`
+
+Note: The certificates were generated and stored in the directory during the setup. The docker daemon is configured
+with the corresponding certificates automatically.
+
+## Recommended Developer Tools on Windows
+
+Create a directory, e.g. `<WINDOWS USER HOME>\.dev-tools` and add this directory to your PATH variable.
+Download the Windows binary and place it in the directory. Remember to rename them to the tool name if the binaries have
+additional components in their name for the specific OS and Architecture.
+
+* kubectl https://kubernetes.io/releases/download/
+* helm https://github.com/helm/helm/releases
+* jq https://github.com/jqlang/jq/releases/
+* yq https://github.com/mikefarah/yq/releases
