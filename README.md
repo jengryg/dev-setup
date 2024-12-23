@@ -21,8 +21,11 @@ and you have to restart portainer in docker to be able to set it up.
 
 ### Configure Docker in IntelliJ
 
-Use IntelliJ docker configuration and point the docker integration to the wsl installation using TCP socket with https.
+Use IntelliJ docker configuration and point the docker integration to the wsl installation using the WSL option with the
+corresponding distribution.
 See https://www.jetbrains.com/help/idea/docker.html#connect_to_docker for more information.
+
+Alternatively, but recommended anymore: Use the TCP socket with https.
 
 * Connection Type: `TCP SOCKET`
 * Host: `https://localhost:2376`
@@ -41,3 +44,8 @@ additional components in their name for the specific OS and Architecture.
 * helm https://github.com/helm/helm/releases
 * jq https://github.com/jqlang/jq/releases/
 * yq https://github.com/mikefarah/yq/releases
+
+## Further recommended Tools
+
+* inkscape https://inkscape.org/release
+* ghostscript https://www.ghostscript.com/releases/gsdnld.html

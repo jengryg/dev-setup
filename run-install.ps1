@@ -66,5 +66,5 @@ Copy-Item -Path "$setupPath\docker-ssl\client-cert.pem" -Destination "$dotDocker
 [Void](New-Item -Path "$setupPath\k8s-kind" -ItemType Directory)
 Copy-Item -Path "$PSScriptRoot\k8s-kind\*" -Destination "$setupPath\k8s-kind\" -Recurse
 
-# initialzie the wsl with ubuntu and cloud init configuration.
+# initialize the wsl with ubuntu and cloud init configuration.
 & $PSScriptRoot\wsl\setup-wsl-cloud-init-config.ps1
