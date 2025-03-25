@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: postgres
+    image: "postgres:17"
+    restart: no
+    user: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - .ignore.env
+    volumes:
+      - "pg-data:/var/lib/postgresql/data"
+
+volumes:
+  pg-data:

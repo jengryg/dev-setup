@@ -49,3 +49,8 @@ additional components in their name for the specific OS and Architecture.
 
 * inkscape https://inkscape.org/release
 * ghostscript https://www.ghostscript.com/releases/gsdnld.html
+
+## Docker Services
+
+The `docker/services` directory provides simple docker compose definitions for local services that are usually needed.
+Run the included docker-compose-up.sh scripts inside their corresponding directory in the wsl.
