@@ -33,6 +33,8 @@ packages:
   - "gnupg2"
   - "wslu"
   - "dos2unix"
+  # utility packages needed
+  - "apache2-utils"
 
 # explicitly set locale instead of relying on default
 locale: en_US.UTF-8

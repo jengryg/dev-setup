@@ -4,9 +4,9 @@
 windowsUserHome="$(wslpath "$(wslvar USERPROFILE)")"
 servicesPath="$windowsUserHome/.dev-setup/docker/services"
 
-cd "$servicesPath/postgres/" || exit
+cd "$servicesPath/registry/" || exit
 
-mkdir -p pg-data
-sudo chmod -R a+rwx pg-data
+mkdir -p registry-data
+sudo chmod -R a+rwx registry-data
 
 docker compose -f docker-compose.yml up --build --detach --wait

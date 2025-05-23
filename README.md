@@ -2,6 +2,17 @@
 
 This repository contains documentation and (partial) automation for my personal dev setup.
 
+## Credentials
+
+The following credential data must be created before the setup script can be run.
+
+````shell
+# create the credentials for the docker container registry
+docker/services/registry/auth/create-account.sh
+# create the credentials file for the postgres database container
+docker/services/postgres/.ignore.env
+````
+
 ## Installation
 
 ````PowerShell

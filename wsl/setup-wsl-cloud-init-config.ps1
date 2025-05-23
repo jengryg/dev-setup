@@ -18,11 +18,11 @@ wsl --install --web-download --no-launch -d Ubuntu-24.04
 
 # use distro launcher but do not create a user, use root instead, cloud-init creates our user
 Write-Host "Installing Ubuntu."
-ubuntu2404.exe install --root
+~\AppData\Local\Microsoft\WindowsApps\ubuntu2404.exe install --root
 
 Write-Host "Waiting for cloud-init to finish."
 # watch cloud-init setup
-ubuntu2404.exe run cloud-init status --wait --long
+~\AppData\Local\Microsoft\WindowsApps\ubuntu2404.exe run cloud-init status --wait --long
 
 # terminate the running instance
 Write-Host "Installation complete. Shutting down Ubuntu."
