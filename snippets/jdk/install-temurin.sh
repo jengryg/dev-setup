@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # This script installs temurin jdk on ubuntu.
 
 # Add the Eclipse Adoptium GPG key
@@ -8,9 +10,9 @@ echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_COD
 
 sudo apt update -y
 
-# install the jdk versions
-sudo apt install temurin-17-jdk
-sudo apt install temurin-21-jdk
+# install the jdk
+sudo apt install temurin-17-jdk -y
+sudo apt install temurin-21-jdk -y
 
 # optional: configure the default version
-# sudo update-alternatives --config java
+sudo update-alternatives --config java
