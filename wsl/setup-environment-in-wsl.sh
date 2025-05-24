@@ -1,3 +1,5 @@
+#!/bin/sh
+
 windowsUserHome="$(wslpath "$(wslvar USERPROFILE)")"
 setupPath="$windowsUserHome/.dev-setup"
 
