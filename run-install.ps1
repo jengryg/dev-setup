@@ -55,6 +55,13 @@ Copy-Item -Path "$PSScriptRoot\docker\*" -Destination "$setupPath\docker\" -Recu
 # copy the testcontainers configuration files
 Copy-Item -Path "$PSScriptRoot\docker\config\.testcontainers.properties" -Destination "$windowsUserHome\.testcontainers.properties"
 
+# use the absolute path to the userprofile for the ssl certificate location in the testcontainers properties file
+$placeholderTcSsl="[PLACEHOLDER_ABSOLUTE_PATH_FOR_DOCKER_TESTCONTAINERS_SSL]"
+# the path must use / instead of \ for the testcontainers path resolver in java
+$replacementTcSsl="$dotDockerPath\testcontainers".Replace("\", "/")
+
+(Get-Content "$windowsUserHome\.testcontainers.properties").Replace($placeholderTcSsl, $replacementTcSsl) | Set-Content "$windowsUserHome\.testcontainers.properties"
+
 # copy the ssl files for docker client and rename them such that it works with testcontainers
 [Void](New-Item -Path "$windowsUserHome\.docker" -ItemType Directory)
 [Void](New-Item -Path "$windowsUserHome\.docker\testcontainers" -ItemType Directory)
