@@ -1,2 +1,5 @@
 # run the docker daemon in the wsl
-wsl sudo dockerd
+start powershell {
+    $Host.UI.RawUI.WindowTitle = 'dockerd in wsl'
+    wsl sudo dockerd
+}
