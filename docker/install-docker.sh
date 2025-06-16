@@ -45,3 +45,4 @@ mkdir -p /etc/docker/ssl
 cp "$setupPath/docker-ssl/ca.pem" "/etc/docker/ssl/ca.pem"
 cp "$setupPath/docker-ssl/server-cert.pem" "/etc/docker/ssl/server-cert.pem"
 cp "$setupPath/docker-ssl/server-key.pem" "/etc/docker/ssl/server-key.pem"
+cp "$setupPath/docker-ssl/registry-cert.pem" "/etc/docker/ssl/registry-cert.pem"

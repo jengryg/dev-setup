@@ -37,11 +37,14 @@ EOF
 #
 # We want a consistent name that works from both ends, so we tell containerd to
 # alias localhost:${reg_port} to the registry container when pulling images
+#
+# (!) IMPORTANT NOTE: in contrast to the official documentation, we use https in the hosts.toml instead of http.
+# The kind registry is created with self signed certificates in this setup.
 REGISTRY_DIR="/etc/containerd/certs.d/localhost:${reg_port}"
 for node in $(kind get nodes); do
   docker exec "${node}" mkdir -p "${REGISTRY_DIR}"
   cat <<EOF | docker exec -i "${node}" cp /dev/stdin "${REGISTRY_DIR}/hosts.toml"
-[host."http://${reg_name}:5000"]
+[host."https://${reg_name}:5000"]
 EOF
 done
 

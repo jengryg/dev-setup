@@ -66,3 +66,26 @@ additional components in their name for the specific OS and Architecture.
 
 The `docker/services` directory provides simple docker compose definitions for local services that are usually needed.
 Run the included docker-compose-up.sh scripts inside their corresponding directory in the wsl.
+
+## Troubleshooting and Issues already Solved
+
+### Kind can not pull from registry due to TLS verification issue
+
+1. Ensure that the registry is integrated in the kind cluster using https prefix and not http in
+   the [k8s-kind-with-registry.sh](k8s-kind/k8s-kind-with-registry.sh) script. Check the `hosts.toml` file that is
+   generated on the node by the script.
+2. Ensure that the [add-own-ca-as-trusted.sh](k8s-kind/add-own-ca-as-trusted.sh) script created the secret containing
+   the
+   `ca.pem` file contents in the `kube-system` namespace.
+3. Ensure that the [add-own-ca-as-trusted.yaml](k8s-kind/add-own-ca-as-trusted.yaml) DaemonSet was created on the
+   cluster in the `kube-system` namespace and that its initContainer ran successfully.
+
+### Kind can not authenticate with registry due to credential issue
+
+To pull images from the `kind-registry` we need to provide the credentials for the registry to our pods that want to
+pull their image. These credentials can be stored as secrets in the corresponding namespace using
+`kubectl create secret docker-registry ...` command.
+
+Use the [registry-auth-setup.sh](/k8s-kind/registry-auth-setup.sh) script to add the credentials with all possible 4
+hostnames in the cluster. These secrets must be present in the namespace that we want to deploy pods since we do not
+automatically propagate them across all namespaces and all service-accounts.

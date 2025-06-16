@@ -58,8 +58,12 @@ openssl x509 -req -in $outputPath\client-cert.csr -CA $outputPath\ca.pem -CAkey 
 openssl genrsa -out $outputPath\server-key.pem 4096
 # generate a certificate signing request for the server using the servers key
 openssl req -new -key $outputPath\server-key.pem -out $outputPath\server-cert.csr -subj "/CN=server-localhost" -config $configPath\openssl-server.cnf
-# use the CA to create the certificate for the client based on the certificate signing request
+# use the CA to create the certificate for the server based on the certificate signing request
 openssl x509 -req -in $outputPath\server-cert.csr -CA $outputPath\ca.pem -CAkey $outputPath\ca-key.pem -CAcreateserial -out $outputPath\server-cert.pem -days 3650 -extensions v3_req -extfile $configPath\openssl-server.cnf
 
+# generate a certificate signing request for the registry using the servers key
+openssl req -new -key $outputPath\server-key.pem -out $outputPath\registry-cert.csr -subj "/CN=server-localhost" -config $configPath\openssl-registry.cnf
+# use the CA to create the certificate for the registry based on the certificate signing request
+openssl x509 -req -in $outputPath\registry-cert.csr -CA $outputPath\ca.pem -CAkey $outputPath\ca-key.pem -CAcreateserial -out $outputPath\registry-cert.pem -days 3650 -extensions v3_req -extfile $configPath\openssl-registry.cnf
 
 Write-Host "Created self signed CA certificate, server certificate and client certificate for localhost in $outputPath directory."
