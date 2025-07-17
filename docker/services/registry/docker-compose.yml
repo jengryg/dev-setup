@@ -2,7 +2,7 @@ services:
   registry:
     container_name: kind-registry
     network_mode: bridge
-    image: "registry:2"
+    image: "registry:3"
     restart: always
     ports:
       - "5001:5000"
