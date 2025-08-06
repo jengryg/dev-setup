@@ -56,6 +56,7 @@ additional components in their name for the specific OS and Architecture.
 * jq https://github.com/jqlang/jq/releases/
 * yq https://github.com/mikefarah/yq/releases
 * oras https://github.com/oras-project/oras/releases
+* argocd https://github.com/argoproj/argo-cd/releases
 
 ## Further recommended Tools
 
